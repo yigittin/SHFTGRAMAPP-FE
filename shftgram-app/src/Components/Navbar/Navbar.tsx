@@ -21,6 +21,18 @@ function Navbar() {
                     onClick={showNavbar}>
                     <FaTimes />
                 </button>
+                <Link to='/Profile'>Profile</Link>
+                <button
+                    className="nav-btn nav-close-btn"
+                    onClick={showNavbar}>
+                    <FaTimes />
+                </button>
+                <Link to='/search'>Search</Link>
+                <button
+                    className="nav-btn nav-close-btn"
+                    onClick={showNavbar}>
+                    <FaTimes />
+                </button>
             </nav>
             <button
                 className="nav-btn"

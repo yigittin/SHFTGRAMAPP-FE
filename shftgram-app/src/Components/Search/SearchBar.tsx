@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { SearchUser} from '../../Utils/APICalls';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Card, CardFooter } from 'react-bootstrap';
+import Input from '@mui/material/Input';
+import { InputAdornment, InputLabel } from '@mui/material';
+import { AccountCircle, Search } from '@mui/icons-material';
 const SearchBar=()=>{
     const [loading, setLoading] = useState(true);
     const[userList,setUserList]=useState([]);
@@ -11,6 +14,7 @@ const SearchBar=()=>{
         const {data: response} = await SearchUser(searchWord);
         setUserList(response.data);
     }
+    
     const nav= useNavigate();
 
     useEffect(()  => {
@@ -29,17 +33,25 @@ const SearchBar=()=>{
     }, [searchWord]);
     return (   
         <>
-            <div>
-                <div className='row justify-center mb-6'>
+            <div className='min-h-[100vh]'>
+                <div className='container flex justify-center'>
                     <Card className='col-6'>
                         <Card.Header>
-                        <label  className='flex flex-col gap-1'>
-                            Search : 
-                            <input value={searchWord} onChange={(e)=>setSearch(e.target.value)}  type='text' className='p-3 border-gray-500 shadow-sm bg-gray-200'/>
-                        </label>
+                        <InputLabel htmlFor="input-with-icon-adornment">
+                            Search User
+                        </InputLabel>
+                        <Input
+                            id="input-with-icon-adornment"
+                            onChange={(e) => setSearch(e.target.value)}
+                            startAdornment={
+                                <InputAdornment position="start">
+                                <Search />
+                                </InputAdornment>
+                            }
+                            />
+
                         </Card.Header>
                         <Card.Body >
-                            <Card.Text>
                             <ul>
                                 {userList.map((item) => (
                                 <li key={item.id}>
@@ -49,7 +61,6 @@ const SearchBar=()=>{
                                 </li>
                                 ))}
                             </ul>
-                            </Card.Text>
                         </Card.Body>
                         <CardFooter> 
                         </CardFooter>

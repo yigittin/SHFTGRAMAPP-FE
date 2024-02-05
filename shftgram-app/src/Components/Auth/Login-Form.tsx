@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Login } from '../../Utils/APICalls';
+import { Input, InputLabel } from '@mui/material';
 
 const LoginForm=()=>{
     const[UserName,setUserName]=useState('')
@@ -24,17 +25,23 @@ const LoginForm=()=>{
             <div>
                 Don't have account? Go to <Link to='/register'> Register</Link>
             </div>
-            <label className='flex flex-col gap-1'>
-                Username : 
-                <input value={UserName} onChange={(e)=>setUserName(e.target.value)} type='text' className='p-3 border-gray-500 shadow-sm bg-gray-200' />
-            </label>
-            <label className='flex flex-col gap-1'>
-                Password : 
-                <input value={Password} onChange={(e)=>setPassword(e.target.value)} type='password' className='p-3 border-gray-500 shadow-sm bg-gray-200'/>
-            </label>            
-            <button className='bg-blue-400 rounded shadow-sm text-white text-lg'>  
+            <Input
+                className='mb-2 w-96'
+                id="Username"
+                placeholder='Username'
+                value={UserName} onChange={(e)=>setUserName(e.target.value)}
+            />
+            <Input
+                className='mb-2 w-96'
+                placeholder='Password'
+                id="Password"
+                type='password'
+                value={Password} onChange={(e)=>setPassword(e.target.value)}
+            />           
+            <button type='submit' className='bg-blue-400 rounded shadow-sm text-white text-lg'>  
                 Login
             </button>
+            
         </form>
     )
 }

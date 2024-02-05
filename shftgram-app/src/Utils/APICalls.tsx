@@ -100,7 +100,11 @@ export const Login= async(dto:any)=>{
       });
  
 }
+export const SignOutCall= async()=>{
 
+    localStorage.removeItem('userData');        
+    localStorage.removeItem('accessToken');         
+}
 export const GetHomePage=async ()=>{
     axios.defaults.headers.common['Content-Type'] = 'application/json';
     const userToken=getUserToken();
@@ -116,14 +120,14 @@ export const LikePost=async(id:number)=>{
     axios.defaults.headers.common["Authorization"]=`Bearer ${userToken}`;
     return (await axios.post(apiLink+'Post/LikePost',id))
 }
-export const FollowUser=async(id:number)=>{
+export const FollowUser=async(id:any)=>{
     axios.defaults.headers.common['Content-Type'] = 'application/json';
     const userToken=getUserToken();
     const apiLink=apiRoute();
     axios.defaults.headers.common["Authorization"]=`Bearer ${userToken}`;
     return (await axios.post(apiLink+'User/Follow',id))
 }
-export const UnfollowUser=async(id:number)=>{
+export const UnfollowUser=async(id:any)=>{
     axios.defaults.headers.common['Content-Type'] = 'application/json';
     const userToken=getUserToken();
     const apiLink=apiRoute();

@@ -31,12 +31,12 @@ const OtherUser=()=>{
         await GetInfos();
     }
 
-    const follow=async()=>{
-        await FollowUser(params.id);
+    const follow=async(id:any)=>{
+        await FollowUser(id);
         await GetInfos();
     }
-    const unfollow=async()=>{
-        await UnfollowUser(params.id);
+    const unfollow=async(id:any)=>{
+        await UnfollowUser(id);
         await GetInfos();
     }
     const handleCloseFollow=()=>setShowFollow(false);
@@ -44,12 +44,12 @@ const OtherUser=()=>{
         setModalFollowHeader(list);
         if(list==="Following"){
             setIsFollower(false);
-            const {data: response} = await GetFollowings(null);
+            const {data: response} = await GetFollowings(params.id);
             setFollowList(response.data);
         }
         else if(list==="Followers"){
             setIsFollower(true);
-            const {data: response} = await GetFollowers(null);
+            const {data: response} = await GetFollowers(params.id);
             setFollowList(response.data);
         }
         setShowFollow(true);
@@ -76,11 +76,11 @@ const OtherUser=()=>{
     console.log(postList);
     return (   
         <>
-            <div>
-                {loading && <div className='grid place-items-center min-h-[100vh] min-w-[100vh]'>Loading ....</div>}
+            <div className='min-h-[100vh]'>
+                {loading && <div className='grid place-items-center min-h-[100vh]'>Loading ....</div>}
                 {!loading && (
                     <div>
-                        <div className='row justify-center mb-6'>
+                        <div className='container flex justify-center mb-3'>
                             <Card className='col-6'>
                                 <Card.Header>
                                     <h5
@@ -90,42 +90,45 @@ const OtherUser=()=>{
                                 </Card.Header>
                                 <Card.Body >
                                     <Card.Text>
-                                    <p
-                                        className="mb-2 text-s leading-tight text-neutral-800 dark:text-neutral-50">
+                                    <div className='flex justify-content-between'>
+                                        <p
+                                        className="mb-2 mt-2 font-bold text-neutral-800 dark:text-neutral-50">
                                         {userData.userName}
                                     </p>
-                                    <p
-                                        className="mb-2 text-s leading-tight text-neutral-800 dark:text-neutral-50">
-                                        Takip Edilenler : {userData.followingCount}
-                                        <Button  variant="primary" size='sm' onClick={()=>handleShowFollow('Following')}>
-                                            List
-                                        </Button>
-                                    </p>
-                                    <p
-                                        className="mb-2 text-s leading-tight text-neutral-800 dark:text-neutral-50">
-                                        Takipçiler : {userData.followerCount}
-                                        <Button  variant="primary" size='sm' onClick={()=>handleShowFollow('Followers')}>
-                                        List
-                                        </Button>
-                                    </p>
+                                    <Button variant="link" onClick={()=>handleShowFollow('Following')}>
+                                        <p
+                                            className="leading-tight text-neutral-800 dark:text-neutral-50">
+                                            Followers : {userData.followerCount}
+                                        </p>
+                                    </Button>
+                                    <Button  variant="link" onClick={()=>handleShowFollow('Followers')}>
+                                        <p
+                                            className="text-neutral-800 dark:text-neutral-50">
+                                            Following : {userData.followingCount}
+                                        </p>
+                                    </Button>
+                                        </div>
+                                        
+                                    
                                     <p
                                         className="mb-2 text-s font-medium leading-tight text-neutral-800 dark:text-neutral-50">
                                         {userData.bioText}
                                     </p>
+                                    
                                     </Card.Text>
                                 </Card.Body>
                                 <CardFooter>
-                                {!followed &&<Button  variant="primary" onClick={()=>follow()}>
+                                {!followed &&<Button  variant="primary" onClick={()=>follow(userData.userId)}>
                                         Follow
                                     </Button>}
-                                    {followed && <Button  variant="secondary" onClick={()=>unfollow()}>
+                                    {followed && <Button  variant="secondary" onClick={()=>unfollow(userData.userId)}>
                                         Unfollow
                                     </Button>}   
                                 </CardFooter>
                             </Card>
                         </div>
-                        <div className='grid place-items-center min-h-[100vh] min-w-[100vh]'>
-                            <Card>
+                        <div className='grid place-items-center'>
+                            <Card >
                             {postList.map((item) => (
                             <div key={item.id}
                             className="mb-6 block rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 w-96">

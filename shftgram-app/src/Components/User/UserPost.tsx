@@ -193,22 +193,24 @@ const UserPost=()=>{
                                     </Card.Header>
                                 <Card.Body >
                                     <Card.Text>
-                                    <p
-                                        className="mb-2 text-s leading-tight text-neutral-800 dark:text-neutral-50">
-                                        {item.userName}
-                                    </p>
-                                    <p
-                                        className="mb-2 text-s font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-                                        {item.likeCount} Likes
-                                        <IconButton color="primary" aria-label="Like" onClick={() => { likePost(item.id); }}>
-                                            <Fav />
-                                        </IconButton>
-                                    </p>
-                                    </Card.Text>
-                                                            
-                                    <Button  variant="primary" onClick={()=>handleShow(item.id,item.text)}>
-                                        Edit
-                                    </Button>
+                                        <p
+                                            className="mb-2 text-s leading-tight text-neutral-800 dark:text-neutral-50">
+                                            {item.userName}
+                                        </p>
+                                        <div className='flex justify-content-between'>
+                                            <p
+                                                className="mb-2 text-s font-medium leading-tight text-neutral-800 dark:text-neutral-50">
+                                                {item.likeCount} Likes
+                                                <IconButton color="primary" aria-label="Like" onClick={() => { likePost(item.id); }}>
+                                                    <Fav />
+                                                </IconButton>
+                                            </p>
+                                            <Button  variant="primary" size='sm' onClick={()=>handleShow(item.id,item.text)}>
+                                                Edit
+                                            </Button>
+                                            
+                                        </div>
+                                    </Card.Text>                                                            
                                 </Card.Body>
                             </div>
                             ))}

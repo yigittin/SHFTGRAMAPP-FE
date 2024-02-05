@@ -6,7 +6,7 @@ import { IconButton, Input, InputLabel } from '@mui/material';
 import Fav from '@mui/icons-material/Favorite';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Card, Modal } from 'react-bootstrap';
-import { AccountCircle, Add } from '@mui/icons-material';
+import { AccountCircle, Add, Search, Share } from '@mui/icons-material';
 const Post=()=>{
     const[postList,setPostList]=useState([])
     const[postSuccess,setPostSuccess]=useState(Boolean)
@@ -114,7 +114,7 @@ const Post=()=>{
                                 </div>
                                     {userId===item.userId &&
                                         <IconButton color="inherit" aria-label="Edit" onClick={()=>handleShow(item.id,item.text)}>
-                                            <Add />
+                                            <Search />
                                         </IconButton>
                                     }
                             </Card.Footer>

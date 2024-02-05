@@ -13,7 +13,7 @@ export const getUserToken=()=>{
     return token;
 }
 export const apiRoute=()=>{
-    return "https://localhost:44332/api/";
+    return "https://localhost:7083/api/";
 }
 
 export const Register= async(dto:any)=>{

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { AddOrUpdatePost, GetHomePage, GetUserId, LikePost, isUserLoggedIn} from '../../Utils/APICalls';
+import { AddOrUpdatePost, DeletePost, GetHomePage, GetUserId, LikePost, isUserLoggedIn} from '../../Utils/APICalls';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { IconButton, Input, InputLabel } from '@mui/material';
 import Fav from '@mui/icons-material/Favorite';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Card, Modal } from 'react-bootstrap';
-import { AccountCircle, Add, Search, Share } from '@mui/icons-material';
+import { AccountCircle, Add, Delete, Search, Share } from '@mui/icons-material';
+import Swal from 'sweetalert2';
 const Post=()=>{
     const[postList,setPostList]=useState([])
     const[postSuccess,setPostSuccess]=useState(Boolean)
@@ -31,6 +32,22 @@ const Post=()=>{
         }catch(error){
             
         }
+    }
+    const handleDelete=async (id:any)=>{
+        Swal.fire({
+            text: "You are going to delete your post.Are you sure?",
+            icon: "error",
+            buttonsStyling: !1,
+            confirmButtonText: "Delete",
+            customClass: {
+                confirmButton: "btn btn-primary"
+            }
+        }).then(( async function(t:any)  {
+          if (t.isConfirmed) {
+            await DeletePost(id);
+            await GetData();
+          }
+      }))  
     }
     const handleClose = () => setShow(false);
     const handleShow = (id:number,text:string) => {
@@ -73,12 +90,14 @@ const Post=()=>{
     }, []);
     console.log(postList);
     return (    
+        <div className='min-h-[100vh]'>
         <>
+
         <>
             <div>
                 {loading && <div className='grid place-items-center min-h-[100vh] min-w-[100vh]'>Loading ....</div>}
                 {!loading && (
-                <div className='grid place-items-center'>
+                    <div className='grid place-items-center'>
                                     <Card>
                     <Card.Header className='d-flex justify-content-between align-items-center'>
                         Latest Posts
@@ -113,9 +132,15 @@ const Post=()=>{
                                     </IconButton>
                                 </div>
                                     {userId===item.userId &&
+                                    <div>
                                         <IconButton color="inherit" aria-label="Edit" onClick={()=>handleShow(item.id,item.text)}>
                                             <Search />
                                         </IconButton>
+                                        <IconButton color="inherit" aria-label="Delete" onClick={()=>handleDelete(item.id)}>
+                                            <Delete />
+                                        </IconButton>
+                                    </div>
+
                                     }
                             </Card.Footer>
                         </Card>
@@ -147,34 +172,37 @@ const Post=()=>{
                 </div>
 
         </>    
-                        <Modal show={show} onHide={handleClose}       
-                        centered >
-                    <Modal.Header closeButton >                        
-                        <Modal.Title>{modalHeader} Post</Modal.Title>
-                    </Modal.Header>
-                        <form onSubmit={(e)=>handleSubmit(e)} >
-                            <Modal.Body>
-                            <InputLabel htmlFor="Post">
-                                    Post
-                                </InputLabel>
-                                <Input
-                                    className='mb-2 w-96'
-                                    id="Post"
-                                    onChange={(e)=>setPostText(e.target.value)}
-                                    value={PostText}
-                                />
-                            </Modal.Body>
-                        <Modal.Footer>
-                            <Button  variant="secondary" onClick={handleClose}>
-                                Close
-                            </Button>
-                            <Button type="submit" variant="primary" onClick={handleClose}>
-                                Save Changes
-                            </Button>
-                        </Modal.Footer>
-                        </form>
-                    </Modal> 
+
+            <Modal show={show} onHide={handleClose}       
+            centered >
+            <Modal.Header closeButton >                        
+                <Modal.Title>{modalHeader} Post</Modal.Title>
+            </Modal.Header>
+                <form onSubmit={(e)=>handleSubmit(e)} >
+                    <Modal.Body>
+                    <InputLabel htmlFor="Post">
+                            Post
+                        </InputLabel>
+                        <Input
+                            className='mb-2 w-96'
+                            id="Post"
+                            onChange={(e)=>setPostText(e.target.value)}
+                            value={PostText}
+                        />
+                    </Modal.Body>
+                <Modal.Footer>
+                    <Button  variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button type="submit" variant="primary" onClick={handleClose}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+                </form>
+            </Modal> 
         </>
+        </div>
+
     )
 }
 

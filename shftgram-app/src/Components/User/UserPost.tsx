@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Card, CardFooter, Modal } from 'react-bootstrap';
 import { IconButton, Input, InputAdornment, InputLabel } from '@mui/material';
 import Fav from '@mui/icons-material/Favorite';
-import { Add } from '@mui/icons-material';
+import { Add, Delete, Search } from '@mui/icons-material';
 const UserPost=()=>{
     const[userData,setUserData]=useState({})
     const[followList,setFollowList]=useState([])
@@ -150,13 +150,13 @@ const UserPost=()=>{
                                         className="mb-2 mt-2 font-bold text-neutral-800 dark:text-neutral-50">
                                         {userData.userName}
                                     </p>
-                                    <Button variant="link" onClick={()=>handleShowFollow('Following')}>
+                                    <Button variant="link" onClick={()=>handleShowFollow('Followers')}>
                                         <p
                                             className="leading-tight text-neutral-800 dark:text-neutral-50">
                                             Followers : {userData.followerCount}
                                         </p>
                                     </Button>
-                                    <Button  variant="link" onClick={()=>handleShowFollow('Followers')}>
+                                    <Button  variant="link" onClick={()=>handleShowFollow('Following')}>
                                         <p
                                             className="text-neutral-800 dark:text-neutral-50">
                                             Following : {userData.followingCount}
@@ -176,8 +176,8 @@ const UserPost=()=>{
                                 </CardFooter>
                             </Card>
                         </div>
-                        <div className='grid place-items-center min-h-[100vh]'>
-                            <Card>
+                        <div className='grid place-items-center '>
+                            <Card className='mb-2'>
                             <IconButton color="primary" size='small' aria-label="Add" onClick={()=>handleShow(0,'')}>
                             <Add />
                             Share
@@ -205,10 +205,15 @@ const UserPost=()=>{
                                                     <Fav />
                                                 </IconButton>
                                             </p>
-                                            <Button  variant="primary" size='sm' onClick={()=>handleShow(item.id,item.text)}>
-                                                Edit
-                                            </Button>
-                                            
+                                            <div>
+                                                <IconButton color="inherit" aria-label="Edit" onClick={()=>handleShow(item.id,item.text)}>
+                                                    <Search />
+                                                </IconButton>
+                                                <IconButton color="inherit" aria-label="Delete" onClick={()=>handleDelete(item.id)}>
+                                                    <Delete />
+                                                </IconButton>
+
+                                            </div>
                                         </div>
                                     </Card.Text>                                                            
                                 </Card.Body>

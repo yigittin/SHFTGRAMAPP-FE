@@ -141,7 +141,13 @@ export const AddOrUpdatePost=async(dto:any)=>{
     axios.defaults.headers.common["Authorization"]=`Bearer ${userToken}`;
     return (await axios.post(apiLink+'Post/AddOrUpdatePost',{Id:dto.Id,Text:dto.Text}))
 }
-  
+export const DeletePost=async(id:any)=>{
+    axios.defaults.headers.common['Content-Type'] = 'application/json';
+    const userToken=getUserToken();
+    const apiLink=apiRoute();
+    axios.defaults.headers.common["Authorization"]=`Bearer ${userToken}`;
+    return (await axios.delete(apiLink+'Post/PostDelete?id='+id));
+}  
 export const GetUserPage=async (id:any)=>{
     const userToken=getUserToken();
     const apiLink=apiRoute();

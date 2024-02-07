@@ -3,10 +3,9 @@ This project build with react + vite.
 To run this project after cloning follows this steps
 
 -- Commands --
-
 cd .\SHFTGRAMAPP-FE\
-cd .\shftgram-app\  
-npm i 
+cd .\shftgram-app\
+npm i
 npm run dev
 
 -- API Configuration --

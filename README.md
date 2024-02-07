@@ -16,3 +16,7 @@ Projects Schema<br />
 -> Components folder -> Holds components and ui layout elements<br />
 -> Pages folder -> The pages run under BrowserRouter<br />
 -> Utils APICalls -> Hold all the backend and auth functionlaties<br />
+
+Default User <br />
+Username : i.yigittin@hotmail.com <br />
+Pass: 102030 <br />
